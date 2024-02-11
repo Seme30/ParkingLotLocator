@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Parking</string>
+    <string name="app_name">ParkNav</string>
+    <string name="home">Home</string>
+    <string name="welcome">Welcome</string>
+    <string name="register">Register</string>
+    <string name="registerForm">Register Form</string>
+    <string name="verify">Verify</string>
+    <string name="roleSelection">Role Selection</string>
 </resources>
