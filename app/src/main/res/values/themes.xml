@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Parking" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.ParkingLotLocator" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.CustomSplashScreenTheme" parent="Theme.ParkingLotLocator">
+        <item name="windowSplashScreenBackground">@color/p_white</item>
+        <item name="android:windowBackground">@drawable/parknav_background</item>
+        <item name="android:duration">600</item>
+        <item name="postSplashScreenTheme">@style/Theme.ParkingLotLocator</item>
+    </style>
 </resources>
