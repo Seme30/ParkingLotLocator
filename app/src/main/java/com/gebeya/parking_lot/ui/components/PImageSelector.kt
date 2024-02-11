@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.gebeya.parking_lot.ui.theme.PBlue
 import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.ui.theme.PWhite2
-import com.training.gebeya.parkinglotlocator.ui.components.PText
+
 
 @Composable
 fun PImageSelector(

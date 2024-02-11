@@ -75,6 +75,7 @@ fun PTextField(
                 onValueChange = {
                     inputState.value = it
                 },
+                readOnly = readOnly,
                 interactionSource = interactionSource,
                 isError = onError,
                 supportingText = supportingText,

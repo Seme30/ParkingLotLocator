@@ -1,4 +1,4 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -8,10 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.training.gebeya.parkinglotlocator.ui.theme.PBlue
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite2
-
+import com.gebeya.parking_lot.ui.theme.PBlue
+import com.gebeya.parking_lot.ui.theme.PWhite2
 
 @Composable
 fun PButton(text: String, click: ()-> Unit, isWhite: Boolean = false){
