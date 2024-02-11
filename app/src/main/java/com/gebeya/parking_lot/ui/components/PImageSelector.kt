@@ -1,4 +1,4 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -39,9 +39,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.training.gebeya.parkinglotlocator.ui.theme.PBlue
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite2
+import com.gebeya.parking_lot.ui.theme.PBlue
+import com.gebeya.parking_lot.ui.theme.PWhite
+import com.gebeya.parking_lot.ui.theme.PWhite2
+import com.training.gebeya.parkinglotlocator.ui.components.PText
 
 @Composable
 fun PImageSelector(

@@ -1,20 +1,14 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,9 +16,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.training.gebeya.parkinglotlocator.ui.theme.PBlue
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite2
+import com.gebeya.parking_lot.ui.theme.PBlue
+import com.gebeya.parking_lot.ui.theme.PWhite2
 
 
 @Composable
@@ -98,7 +91,7 @@ private fun CharView(
             )
             .padding(2.dp),
         text = char,
-        style = MaterialTheme.typography.h4,
+        style = MaterialTheme.typography.titleMedium,
         color = if (isFocused) {
             PWhite2
         } else {

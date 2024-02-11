@@ -1,4 +1,4 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,7 +16,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,13 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.training.gebeya.parkinglotlocator.ui.theme.PBlue
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite
-import com.training.gebeya.parkinglotlocator.ui.theme.PWhite2
+import com.gebeya.parking_lot.ui.theme.PBlue
+import com.gebeya.parking_lot.ui.theme.PWhite
+import com.gebeya.parking_lot.ui.theme.PWhite2
 
 
 @OptIn(ExperimentalMaterial3Api::class)

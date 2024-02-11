@@ -1,10 +1,10 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import com.training.gebeya.parkinglotlocator.R
+import com.gebeya.parking_lot.R
 
 val montserratFamily = FontFamily(
     Font(R.font.montserrat_light, FontWeight.Light),

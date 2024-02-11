@@ -1,20 +1,15 @@
-package com.training.gebeya.parkinglotlocator.ui.components
+package com.gebeya.parking_lot.ui.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.training.gebeya.parkinglotlocator.R
-import com.training.gebeya.parkinglotlocator.ui.theme.PDeepBlue
-import org.w3c.dom.Text
+import com.gebeya.parking_lot.ui.components.montserratFamily
+import com.gebeya.parking_lot.ui.theme.PDeepBlue
 
 @Composable
 fun PText(
