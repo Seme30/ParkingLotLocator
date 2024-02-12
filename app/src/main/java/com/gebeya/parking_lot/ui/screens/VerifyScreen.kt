@@ -95,10 +95,12 @@ fun VerifyScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             PText(
-                text = "Please enter the verification code we sent to your mobile $phone",
+                text = "Please enter the verification code we sent " +
+                        "to your mobile $phone",
                 size = 18.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Thin,
+                maxLines = 2
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -107,7 +109,8 @@ fun VerifyScreen(
                 otpText = otpValue,
                 onOtpTextChange = { value, _ ->
                     otpValue = value
-                }
+                },
+                modifier = Modifier.height(30.dp)
             )
 
             Spacer(modifier = Modifier.height(50.dp))
