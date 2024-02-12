@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gebeya.parking_lot.ui.screens.HomeScreen
 import com.gebeya.parking_lot.ui.screens.RegisterForm
+import com.gebeya.parking_lot.ui.screens.RegisterProviderScreen
 import com.gebeya.parking_lot.ui.screens.RegisterScreen
 import com.gebeya.parking_lot.ui.screens.RoleSelectionScreen
 import com.gebeya.parking_lot.ui.screens.VerifyScreen
@@ -29,6 +30,8 @@ fun SetupNavGraph(
         composable(route = Screen.Home.route){
             HomeScreen(navController = navController)
         }
+
+
 //
         composable(route= Screen.Register.route,
             ){
@@ -57,6 +60,10 @@ fun SetupNavGraph(
             RoleSelectionScreen(
                 navController = navController
             )
+        }
+
+        composable(route = Screen.RegisterProvider.route){
+            RegisterProviderScreen(navController = navController)
         }
     }
 

@@ -24,6 +24,8 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon:
 
     object RegisterForm: Screen(route = "RegisterForm", R.string.registerForm, {})
 
+    object RegisterProvider: Screen(route = "RegisterForm", R.string.registerForm, {})
+
     object Verify: Screen(route = "VerifyScreen", R.string.verify, {
 
     })

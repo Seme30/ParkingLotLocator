@@ -78,7 +78,7 @@ fun RoleSelectionScreen(
             Spacer(modifier = Modifier.height(15.dp))
 
             PButton(text = "Continue as Provider", click = {
-                navController.navigate(Screen.RegisterForm.route)
+                navController.navigate(Screen.RegisterProvider.route)
             })
         }
     }
