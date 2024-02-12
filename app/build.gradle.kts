@@ -89,4 +89,13 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+    // Retrofit
+    val retrofit_version = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
+    //Json convertor
+    implementation("com.google.code.gson:gson:2.7")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
