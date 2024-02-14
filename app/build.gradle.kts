@@ -97,5 +97,7 @@ dependencies {
     //Json convertor
     implementation("com.google.code.gson:gson:2.7")
 
+    implementation("com.google.accompanist:accompanist-coil:0.15.0")
+
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
