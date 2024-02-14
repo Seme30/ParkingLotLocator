@@ -31,4 +31,9 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon:
     object RoleSelection: Screen(route = "RoleSelection", R.string.roleSelection, {
 
     })
+
+    object MainScreen: Screen(route = "MainScreen", R.string.mainScreen, {})
+
+    object SuccessScreen: Screen(route = "SuccessScreen", R.string.success, {})
+
 }

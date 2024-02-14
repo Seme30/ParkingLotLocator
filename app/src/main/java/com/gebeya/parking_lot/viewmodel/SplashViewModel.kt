@@ -2,6 +2,7 @@ package com.gebeya.parking_lot.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,11 +21,21 @@ class SplashViewModel @Inject constructor(
     private val _startDestination: MutableState<String> = mutableStateOf(Screen.Welcome.route)
     val startDestination: State<String> = _startDestination
 
+
     init {
         viewModelScope.launch {
             repository.readOnBoardingState().collect { completed ->
                 if (completed) {
-                    _startDestination.value = Screen.Register.route
+                    repository.getAuthenticationToken().collect { authenticationToken ->
+                        when(authenticationToken != null){
+                            true -> {
+                                _startDestination.value = Screen.MainScreen.route
+                            }
+                            false -> {
+                                _startDestination.value = Screen.Register.route
+                            }
+                        }
+                    }
                 } else {
                     _startDestination.value = Screen.Welcome.route
                 }
