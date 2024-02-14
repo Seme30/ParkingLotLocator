@@ -27,8 +27,9 @@ object NetworkModule {
             .addInterceptor(logging)
             .build()
 
+//            .baseUrl("http://192.168.238.209:8008/api/v1/")
         return Retrofit.Builder()
-            .baseUrl("http://192.168.238.209:8008/api/v1/")
+            .baseUrl("https://api.quotable.io/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()

@@ -103,10 +103,10 @@ fun RegisterScreen(
         PButton(text = "Continue", click = {
             registerViewModel.validatePhoneNumber(phone.value)
             if(registerViewModel.phoneError.isEmpty()) {
-                registerViewModel.authUser(phone.value)
-                navController.navigate("${Screen.Verify.route}/${phone.value}"
-                )
+ //               registerViewModel.authUser(phone.value)
+                navController.navigate("${Screen.Verify.route}/${phone.value}")
             }
+
         })
 
 

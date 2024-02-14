@@ -38,7 +38,7 @@ fun PTextField(
     inputState: MutableState<String> = mutableStateOf(""),
     leadingIcon: (@Composable() () -> Unit)? = null,
     trailingIcon: (@Composable() () -> Unit)? = null,
-    label: String,
+    label: String = "",
     placeholder: (@Composable() () -> Unit)? = null,
     onError: Boolean = false,
     supportingText: (@Composable() () -> Unit)? = null,

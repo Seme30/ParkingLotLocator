@@ -62,8 +62,6 @@ fun RegisterForm(
     val registerFormViewModel = hiltViewModel<RegisterFormViewModel>()
     val context = LocalContext.current
 
-
-
 //    val password = remember {
 //        mutableStateOf("")
 //    }
@@ -180,7 +178,6 @@ fun RegisterForm(
                     )
                 )
             }
-            Spacer(modifier = Modifier.height(5.dp))
 
 //            PImageSelector(imageState = imageState, label = "Profile", imageName = imageName)
 
@@ -219,7 +216,7 @@ fun RegisterForm(
                     ){
 
 
-                        navController.navigate(Screen.Home.route)
+                        navController.navigate(Screen.SuccessScreen.route)
                     }
 
 
