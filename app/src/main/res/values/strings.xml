@@ -6,4 +6,6 @@
     <string name="registerForm">Register Form</string>
     <string name="verify">Verify</string>
     <string name="roleSelection">Role Selection</string>
+    <string name="mainScreen">Main Screen</string>
+    <string name="success">Success Screen</string>
 </resources>
