@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -100,4 +101,13 @@ dependencies {
     implementation("com.google.accompanist:accompanist-coil:0.15.0")
 
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    //Google Services & Maps
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("com.google.maps.android:maps-compose:2.9.0")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+
+    implementation("com.google.firebase:firebase-storage")
 }

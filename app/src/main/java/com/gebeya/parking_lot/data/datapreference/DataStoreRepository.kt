@@ -22,10 +22,33 @@ class DataStoreRepository(context: Context) {
     private object PreferencesKey {
         val onBoardingKey = booleanPreferencesKey(name = "on_boarding_completed")
         val authenticationTokenKey = stringPreferencesKey(name = "authentication_token")
+        val phoneNumberKey = stringPreferencesKey(name = "phone_number")
     }
 
     private val dataStore = context.dataStore
     private val gson = Gson()
+
+
+
+suspend fun savePhoneNumber(phoneNumber: String) {
+    dataStore.edit { preferences ->
+        preferences[PreferencesKey.phoneNumberKey] = phoneNumber
+    }
+}
+
+fun readPhoneNumber(): Flow<String?> {
+    return dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            preferences[PreferencesKey.phoneNumberKey]
+        }
+}
 
     suspend fun saveOnBoardingState(completed: Boolean) {
         dataStore.edit { preferences ->
@@ -48,7 +71,7 @@ class DataStoreRepository(context: Context) {
             }
     }
 
-    suspend fun saveAuthenticationToken(authenticationToken: PhoneVerifyResponse) {
+    suspend fun saveAuthenticationToken(authenticationToken: String) {
         val tokenJson = gson.toJson(authenticationToken)
         println("Login result json: $tokenJson")
         dataStore.edit { preferences ->
@@ -56,7 +79,7 @@ class DataStoreRepository(context: Context) {
         }
     }
 
-    fun getAuthenticationToken(): Flow<PhoneVerifyResponse?> {
+    fun getAuthenticationToken(): Flow<String?> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -67,11 +90,20 @@ class DataStoreRepository(context: Context) {
             }
             .map { preferences ->
                 val tokenJson = preferences[PreferencesKey.authenticationTokenKey]
-                if(tokenJson != null){
-                    gson.fromJson(tokenJson, PhoneVerifyResponse::class.java)
-                }else{
-                    null
-                }
+                tokenJson
             }
+    }
+
+
+    suspend fun deletePhoneNumber() {
+        dataStore.edit { preferences ->
+            preferences.remove(PreferencesKey.phoneNumberKey)
+        }
+    }
+
+    suspend fun deleteAuthenticationToken() {
+        dataStore.edit { preferences ->
+            preferences.remove(PreferencesKey.authenticationTokenKey)
+        }
     }
 }

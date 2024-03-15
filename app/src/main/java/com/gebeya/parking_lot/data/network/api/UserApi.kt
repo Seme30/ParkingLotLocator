@@ -1,6 +1,7 @@
 package com.gebeya.parking_lot.data.network.api
 
 import com.gebeya.parking_lot.data.network.model.AuthenticationToken
+import com.gebeya.parking_lot.data.network.model.PhoneRequest
 import com.gebeya.parking_lot.data.network.model.PhoneVerify
 import com.gebeya.parking_lot.data.network.model.User
 import okhttp3.ResponseBody
@@ -27,7 +28,7 @@ interface UserApi {
 
     @POST("auth/login")
     suspend fun auth(
-        @Body phone: String
+        @Body phoneNo: PhoneRequest
     )
 
     @POST("auth/otp")

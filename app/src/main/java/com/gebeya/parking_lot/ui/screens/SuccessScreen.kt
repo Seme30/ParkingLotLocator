@@ -22,20 +22,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gebeya.parking_lot.data.keystore.Role
 import com.gebeya.parking_lot.ui.components.PText
 import com.gebeya.parking_lot.ui.theme.PBlue
 import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.ui.util.Screen
+import com.gebeya.parking_lot.viewmodel.RoleViewModel
+import com.gebeya.parking_lot.viewmodel.SuccessViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 @Composable
 fun SuccessScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    roleViewModel: RoleViewModel
 ){
 
+    val successViewModel = hiltViewModel<SuccessViewModel>()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -46,7 +53,8 @@ fun SuccessScreen(
 
         Column(
             modifier = Modifier
-                .fillMaxSize().background(
+                .fillMaxSize()
+                .background(
                     PBlue
                 ),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -83,9 +91,40 @@ fun SuccessScreen(
     LaunchedEffect(Unit) {
         delay(3000)
         withContext(Dispatchers.Main){
-            navController.navigate(Screen.MainScreen.route){
-                popUpTo(Screen.Welcome.route) { inclusive = true }
+            roleViewModel.getRole()
+            println("Role: ${roleViewModel.userRole}")
+            when(roleViewModel.userRole){
+                Role.Driver -> {
+                    navController.navigate(Screen.MainScreen.route){
+                        popUpTo(Screen.Welcome.route) { inclusive = true }
+                    }
+                }
+                Role.Provider -> {
+                    if(successViewModel.lotError.value == "parking lot id not found"){
+                        println(successViewModel.lotError.value)
+                        navController.navigate(Screen.PRegisterForm.route){
+                            popUpTo(Screen.Welcome.route) { inclusive = true }
+                        }
+                    }
+
+                    successViewModel.lot.value.let { lotResponse ->
+                        if(lotResponse == null ){
+                            println(successViewModel.lotError.value)
+                            navController.navigate(Screen.PRegisterForm.route){
+                                popUpTo(Screen.Register.route) { inclusive = true }
+                            }
+                        } else {
+                            navController.navigate(Screen.ProviderMainScreen.route){
+                                popUpTo(Screen.Register.route) { inclusive = true }
+                            }
+                        }
+                    }
+                }
+                null -> {
+
+                }
             }
+
         }
     }
 

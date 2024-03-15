@@ -8,4 +8,13 @@
     <string name="roleSelection">Role Selection</string>
     <string name="mainScreen">Main Screen</string>
     <string name="success">Success Screen</string>
+    <string name="detail">Detail</string>
+    <string name="parkinglotprovider">Parking</string>
+    <string name="dashboard">Home</string>
+    <string name="RegisterForm">Register Form</string>
+    <string name="ParkingLot">Parking Lot List</string>
+    <string name="LotInformation">Lot</string>
+    <string name="ParkingProfile">Profile</string>
+    <string name="VehicleList">Vehicles</string>
+    <string name="Reservation">Reservations</string>
 </resources>

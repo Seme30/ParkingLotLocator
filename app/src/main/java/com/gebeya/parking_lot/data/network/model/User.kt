@@ -17,6 +17,9 @@ data class AuthenticationToken(
     val expiresAt: String,
 )
 
+data class PhoneRequest(
+    val phoneNo: String
+)
 
 data class PhoneVerify(
     val phoneNo: String,

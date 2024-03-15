@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "50361786640",
+    "project_id": "flutter-chat-93b06",
+    "storage_bucket": "flutter-chat-93b06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50361786640:android:9aa73ebcb70eca3e358595",
+        "android_client_info": {
+          "package_name": "com.gebeya.parking_lot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50361786640-n9bo3h8pfcg0652po0tfl70j5uk2l7s5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBet3_C5x_OicfOF48DoDSL14qhRXdHRWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50361786640-n9bo3h8pfcg0652po0tfl70j5uk2l7s5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "50361786640-osidq33tjk7583si2nm8gq45a4q4afqg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

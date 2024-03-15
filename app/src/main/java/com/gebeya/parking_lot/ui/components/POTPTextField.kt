@@ -82,7 +82,6 @@ private fun CharView(
     Text(
         modifier = Modifier
             .width(40.dp)
-            .height(70.dp)
             .background(
                 if (isFocused){
                     PBlue

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextField
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,14 +43,12 @@ fun PTextField(
     placeholder: (@Composable() () -> Unit)? = null,
     onError: Boolean = false,
     supportingText: (@Composable() () -> Unit)? = null,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions =KeyboardOptions(keyboardType = KeyboardType.Text),
     readOnly: Boolean = false,
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-
-
-    println("State: ${inputState.value}")
 
     Column(
         modifier = Modifier.fillMaxWidth(0.89f),
@@ -75,6 +74,7 @@ fun PTextField(
                 onValueChange = {
                     inputState.value = it
                 },
+                keyboardActions = keyboardActions,
                 readOnly = readOnly,
                 interactionSource = interactionSource,
                 isError = onError,

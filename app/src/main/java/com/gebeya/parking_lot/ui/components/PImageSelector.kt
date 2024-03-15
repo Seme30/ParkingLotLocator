@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 //import androidx.compose.foundation.Image
@@ -39,33 +40,56 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.FileProvider
 import com.gebeya.parking_lot.ui.theme.PBlue
 import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.ui.theme.PWhite2
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 
 @Composable
 fun PImageSelector(
-    modifier: Modifier = Modifier,
-    imageState: MutableState<Bitmap?>,
-    imageName: MutableState<String?>,
-    label: String
+    imageUrl: MutableState<String?>,
+    onEditStateChange: (String?) -> Unit = {_ -> },
+    isImageEdited: MutableState<Boolean?>? = null,
+    imageName: MutableState<String>,
+    label: String,
 ) {
     val context = LocalContext.current
+    val storageRef = Firebase.storage.reference
+
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            imageState.value = getBitmapFromUri(context, it)
-            imageName.value = getFileName(context, it)
+        if (uri != null) {
+            val filename = "profile-image"
+            val fileRef = storageRef.child("Parking-lot/$filename")
+
+            imageName.value = "Uploading"
+
+            val uploadTask = fileRef.putFile(uri)
+
+            uploadTask.addOnSuccessListener {
+                fileRef.downloadUrl.addOnSuccessListener { uri ->
+                    imageUrl.value = uri.toString()
+                    isImageEdited?.value = true
+                    onEditStateChange(
+                        imageUrl.value
+                    )
+                    imageName.value = filename
+                    println("uploadTask ${imageUrl.value}")
+                }
+            }.addOnFailureListener { exception ->
+                Toast.makeText(context, "Failed to upload image: ${exception.message}", Toast.LENGTH_SHORT).show()
+                imageName.value = "Upload failed"
+            }
         }
     }
 
-    Column(modifier = modifier
+    Column(modifier = Modifier.fillMaxWidth(0.89f)
         .clickable {
             launcher.launch("image/*")
-        }
-        .padding(20.dp),) {
-
-        Spacer(modifier = Modifier.height(10.dp))
+        }, horizontalAlignment = Alignment.Start) {
 
         PText(text = label, size = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.fillMaxWidth())
 
@@ -77,7 +101,7 @@ fun PImageSelector(
                 .fillMaxWidth()
                 .clip(CircleShape)
                 .background(
-                    color = PWhite
+                    color = Color.White
                 ),
         ){
 
@@ -89,16 +113,15 @@ fun PImageSelector(
                 textStyle = TextStyle(
                     fontFamily = montserratFamily,
                 ),
-                leadingIcon = { Icon(Icons.Default.Image, "Image") },
                 trailingIcon = { IconButton(onClick = {
                     launcher.launch("image/*")
                 }){
-                    Icon(Icons.Default.Folder, "")}
+                    Icon(Icons.Default.Image, "", tint = PBlue)}
                 },
                 readOnly = true,
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = PWhite2,
-                    unfocusedContainerColor = PWhite2,
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
                     cursorColor = PBlue,
                     disabledTextColor = Color.White,
                     focusedTextColor = Color.Black,
@@ -106,29 +129,25 @@ fun PImageSelector(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 ),
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = PWhite2,
+                        color = Color.White,
                         shape = CircleShape
                     )
                     .border(
                         width = 0.dp,
                         shape = CircleShape,
-                        color = PWhite
+                        color = Color.White
                     )
-                    ,
+                ,
                 placeholder = {
-                    if(imageName.value != null){
-                        val trimmedText = if (imageName.value!!.length > 20) {
-                            imageName.value!!.substring(0, 20) + "..."
-                        } else {
-                            imageName.value!!
-                        }
-                        PText(text = trimmedText , size = 14.sp, fontWeight = FontWeight.Thin)
-                    }else{
-                        PText(text = "Select Image" , size = 14.sp, fontWeight = FontWeight.Thin)
+                    val trimmedText = if (imageName.value.length > 20) {
+                        imageName.value.substring(0, 20) + "..."
+                    } else {
+                        imageName.value
                     }
+                    PText(text = trimmedText , size = 14.sp, fontWeight = FontWeight.Thin)
                 }
 
             )
@@ -137,25 +156,17 @@ fun PImageSelector(
     }
 }
 
-fun getBitmapFromUri(context: Context, uri: Uri): Bitmap {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, uri))
-    } else {
-        MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
-    }
-}
+
 
 @SuppressLint("Range")
 fun getFileName(context: Context, uri: Uri): String {
     var result: String? = null
     if (uri.scheme == "content") {
         val cursor = context.contentResolver.query(uri, null, null, null, null)
-        try {
+        cursor.use {
             if (cursor != null && cursor.moveToFirst()) {
                 result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
             }
-        } finally {
-            cursor?.close()
         }
     }
     if (result == null) {

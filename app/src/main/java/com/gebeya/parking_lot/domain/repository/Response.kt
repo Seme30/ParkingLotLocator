@@ -1,4 +1,4 @@
-package com.training.gebeya.safari_wfp.domain.repository
+package com.gebeya.parking_lot.domain.repository
 
 sealed class Response<T>(
     val data: T? = null,
@@ -6,4 +6,6 @@ sealed class Response<T>(
 ) {
     class Success<T>(data: T): Response<T>(data = data)
     class Fail<T>(errorMessage: String): Response<T>(errorMessage = errorMessage)
+
+    class Loading<T>(data: T? = null) : Response<T>(data)
 }

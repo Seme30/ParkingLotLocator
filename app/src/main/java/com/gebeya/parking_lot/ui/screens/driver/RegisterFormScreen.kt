@@ -1,4 +1,4 @@
-package com.gebeya.parking_lot.ui.screens
+package com.gebeya.parking_lot.ui.screens.driver
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gebeya.parking_lot.data.network.model.Driver
 import com.gebeya.parking_lot.ui.components.PButton
 import com.gebeya.parking_lot.ui.components.PText
 import com.gebeya.parking_lot.ui.components.PTextField
@@ -160,6 +161,7 @@ fun RegisterForm(
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
+
             PTextField(
                 inputState = email,
                 leadingIcon = {Icon(Icons.Default.MailOutline, contentDescription = "Email",)},
@@ -205,21 +207,35 @@ fun RegisterForm(
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            PButton(text = "Create account", click = {
+            PButton(text = if(registerFormViewModel.isLoading.value){
+                "Loading"
+            }else{ "Continue" },
+            click = {
                 registerFormViewModel.validateInput(firstName.value, lastName.value, email.value)
                 if(isTermsAgread){
-
                     if(
                         registerFormViewModel.firstNameError.isEmpty() &&
                         registerFormViewModel.lastNameError.isEmpty() &&
                         registerFormViewModel.emailError.isEmpty()
                     ){
 
+                        registerFormViewModel.phoneNumber.value?.let { phone ->
+                            Driver(
+                                id = null,
+                                firstName.value,
+                                lastName.value,
+                                email.value,
+                                phone,
+                                imageUrl = null
+                            ).let {
+                                registerFormViewModel.createDriver(it)
+                                if(registerFormViewModel.errorMessage.value.isEmpty()){
+                                    navController.navigate(Screen.SuccessScreen.route)
+                                }
+                            }
+                        }
 
-                        navController.navigate(Screen.SuccessScreen.route)
                     }
-
-
                 } else {
                     Toast.makeText(context, "First Agree to Terms and Conditions", Toast.LENGTH_LONG).show()
                 }

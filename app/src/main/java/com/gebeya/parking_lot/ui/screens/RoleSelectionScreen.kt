@@ -18,17 +18,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.gebeya.parking_lot.R
+import com.gebeya.parking_lot.data.keystore.Role
 import com.gebeya.parking_lot.ui.components.PButton
 import com.gebeya.parking_lot.ui.components.PText
 import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.ui.util.Screen
+import com.gebeya.parking_lot.viewmodel.RoleViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun RoleSelectionScreen(
     navController: NavHostController
 ){
+
+    val roleViewModel = hiltViewModel<RoleViewModel>()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,7 +68,8 @@ fun RoleSelectionScreen(
             verticalArrangement = Arrangement.Bottom,
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxWidth(0.2f).padding(bottom = 30.dp)
+                .fillMaxWidth(0.2f)
+                .padding(bottom = 30.dp)
         ) {
             PText(text = "Select Your Role",
                 size = 24.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold,
@@ -72,13 +79,15 @@ fun RoleSelectionScreen(
             Spacer(modifier = Modifier.height(15.dp))
 
             PButton(text = "Continue as Driver", click = {
+                roleViewModel.storeRole(Role.Driver)
                 navController.navigate(Screen.RegisterForm.route)
             })
 
             Spacer(modifier = Modifier.height(15.dp))
 
             PButton(text = "Continue as Provider", click = {
-                navController.navigate(Screen.RegisterForm.route)
+                roleViewModel.storeRole(Role.Provider)
+                navController.navigate(Screen.ProviderRegisterForm.route)
             })
         }
     }

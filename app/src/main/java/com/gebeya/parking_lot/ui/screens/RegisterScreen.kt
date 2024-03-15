@@ -71,7 +71,7 @@ fun RegisterScreen(
             painter = painterResource(id = R.drawable.logo), contentDescription = "")
 
 
-        PText(text = "Create a ParkNav Account",
+        PText(text = "Continue with a ParkNav Account",
             size = 24.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth()
         )
@@ -103,10 +103,10 @@ fun RegisterScreen(
         PButton(text = "Continue", click = {
             registerViewModel.validatePhoneNumber(phone.value)
             if(registerViewModel.phoneError.isEmpty()) {
- //               registerViewModel.authUser(phone.value)
+               println("register screen")
+               registerViewModel.authUser(phone.value)
                 navController.navigate("${Screen.Verify.route}/${phone.value}")
             }
-
         })
 
 
