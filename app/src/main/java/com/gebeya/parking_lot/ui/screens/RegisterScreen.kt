@@ -44,14 +44,11 @@ fun RegisterScreen(
     navController: NavHostController
 ){
 
-
     val registerViewModel = hiltViewModel<RegisterViewModel>()
 
     val phone = remember {
         mutableStateOf("")
     }
-
-
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,15 +106,6 @@ fun RegisterScreen(
             }
         })
 
-
-
-
-//        OtpTextField(
-//            otpText = otpValue,
-//            onOtpTextChange = { value, otpInputFilled ->
-//                otpValue = value
-//            }
-//        )
 
     }
 }
