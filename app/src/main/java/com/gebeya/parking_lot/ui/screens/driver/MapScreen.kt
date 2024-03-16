@@ -1,8 +1,5 @@
 package com.gebeya.parking_lot.ui.screens.driver
 
-
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,15 +18,11 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Padding
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.DirectionsCar
-import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -78,13 +71,8 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
 
 
 @Composable
@@ -104,7 +92,6 @@ fun MapViewScreen(
 
     val searchResults = mainScreenViewModel.searchResults.value
     val parkList = mainScreenViewModel.park.value
-    val directionsState = mainScreenViewModel.directionsState.collectAsState()
     val polylinePoints = remember { mutableStateOf(listOf<LatLng>()) }
 
 
@@ -126,11 +113,6 @@ fun MapViewScreen(
                 Marker(state = MarkerState(location.value ?: LatLng(0.0, 0.0)),
                     title = "My Location",
                     draggable = true,
-                    onClick = {
-                        println("Marker location: ${it.position}")
-                        selectedMarker = it
-                        true
-                    }
                 )
 
                 parkList?.let { parks ->
@@ -171,31 +153,13 @@ fun MapViewScreen(
                     }
                     mainScreenViewModel.getParks(latLng.latitude, latLng.latitude)
 
-                    mainScreenViewModel.getDirections(
-                        "${location.value?.longitude},${location.value?.latitude}",
-                        "${latLng.longitude},${latLng.latitude}"
-                    )
+//                    mainScreenViewModel.getDirections(
+//                        "${location.value?.longitude},${location.value?.latitude}",
+//                        "${latLng.longitude},${latLng.latitude}"
+//                    )
                 }
             }
 
-            when (directionsState.value) {
-                        is MainScreenViewModel.DirectionsState.Error -> {
-                            CircularProgressIndicator()
-                        }
-                        MainScreenViewModel.DirectionsState.Loading -> {
-                            println(directionsState)
-                        }
-                        is MainScreenViewModel.DirectionsState.Success -> {
-                            val response = ((directionsState).value as MainScreenViewModel.DirectionsState.Success).response
-                            println(response)
-
-                            val coordinates = response.features[0].geometry.coordinates
-                            println("coordinates: $coordinates")
-
-                            val points = coordinates.map { LatLng(it[1], it[0]) }
-                            polylinePoints.value = points
-                        }
-                    }
 
 
             // Display the CustomInfoWindow for the selected marker
@@ -377,7 +341,6 @@ fun MapViewScreen(
                 verticalArrangement = Arrangement.Center
             ){ CircularProgressIndicator() }
         }
-
     }
 }
 
@@ -387,34 +350,6 @@ suspend fun CameraPositionState.centerCamera(location: LatLng){
         durationMs = 2000
     )
 }
-
-suspend fun CameraPositionState.centerMidCamera(location1: LatLng, location2: LatLng) {
-    val midPoint = calculateMidPoint(location1.latitude, location1.longitude, location2.latitude, location2.longitude)
-    return animate(
-        update = CameraUpdateFactory.newLatLngZoom( midPoint, 14f ),
-        durationMs = 2000
-    )
-}
-
-fun calculateMidPoint(lat1: Double, lon1: Double, lat2: Double, lon2: Double): LatLng {
-    val dLon = Math.toRadians(lon2 - lon1)
-
-    // Convert to radians
-    val radLat1 = Math.toRadians(lat1)
-    val radLat2 = Math.toRadians(lat2)
-    val radLon1 = Math.toRadians(lon1)
-
-    val Bx = cos(radLat2) * cos(dLon)
-    val By = cos(radLat2) * sin(dLon)
-    val lat3 = atan2(sin(radLat1) + sin(radLat2), sqrt((cos(radLat1) + Bx) * (cos(radLat1) + Bx) + By * By))
-    val lon3 = radLon1 + atan2(By, cos(radLat1) + Bx)
-
-    return LatLng(Math.toDegrees(lat3), Math.toDegrees(lon3))
-}
-
-
-
-
 
 @Composable
 fun CustomInfoWindow(marker: Marker, onClose: () -> Unit, navController: NavHostController, selectPark:  Park?) {
