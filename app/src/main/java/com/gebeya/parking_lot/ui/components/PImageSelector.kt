@@ -56,6 +56,8 @@ fun PImageSelector(
     isImageEdited: MutableState<Boolean?>? = null,
     imageName: MutableState<String>,
     label: String,
+    type: String? = null,
+    imageId: String? = null,
 ) {
     val context = LocalContext.current
     val storageRef = Firebase.storage.reference
@@ -63,7 +65,7 @@ fun PImageSelector(
     val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
             val filename = "profile-image"
-            val fileRef = storageRef.child("Parking-lot/$filename")
+            val fileRef = storageRef.child("Parking-lot/$type/$filename-$imageId")
 
             imageName.value = "Uploading"
 

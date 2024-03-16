@@ -229,9 +229,9 @@ fun AddParkingForm(
                 )
             )
         }
-        PImageSelector(imageUrl = imageUrl1, label = "", imageName = imageName)
-        PImageSelector(imageUrl = imageUrl2, label = "", imageName = imageName2)
-        PImageSelector(imageUrl = imageUrl3, label = "", imageName = imageName3)
+        PImageSelector(imageUrl = imageUrl1, label = "", imageName = imageName, type = "Parking-lot", imageId = location.value?.latitude.toString())
+        PImageSelector(imageUrl = imageUrl2, label = "", imageName = imageName2, imageId = location.value?.latitude.toString())
+        PImageSelector(imageUrl = imageUrl3, label = "", imageName = imageName3, imageId = location.value?.latitude.toString())
 
         Spacer(modifier = Modifier.height(10.dp))
 

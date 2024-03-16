@@ -198,6 +198,8 @@ fun ParkingProfileScreen(
                     imageUrl.value = url
                 },
                 imageName = imageName , label = "",
+                imageId = initialId.toString(),
+                type = "Parking-Profile",
                 isImageEdited = isImageEdited)
 
             Spacer(modifier = Modifier.height(20.dp))

@@ -218,7 +218,10 @@ fun ProfileScreen(
                             imageUrl.value = url
                         },
                         imageName = imageName , label = "",
-                        isImageEdited = isImageEdited)
+                        isImageEdited = isImageEdited,
+                        type = "Profile",
+                        imageId = initialId.value.toString()
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
