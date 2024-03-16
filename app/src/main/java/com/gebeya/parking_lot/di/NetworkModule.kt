@@ -1,25 +1,19 @@
 package com.gebeya.parking_lot.di
 
-import com.gebeya.parking_lot.data.datapreference.DataStoreRepository
 import com.gebeya.parking_lot.data.directions.DirectionsApi
 import com.gebeya.parking_lot.data.network.api.DriverApi
 import com.gebeya.parking_lot.data.network.api.LotApi
 import com.gebeya.parking_lot.data.network.api.OpApi
 import com.gebeya.parking_lot.data.network.api.UserApi
 import com.gebeya.parking_lot.data.network.api.VehicleApi
-import com.gebeya.parking_lot.data.network.model.Vehicle
 import com.gebeya.parking_lot.data.place.PlaceApi
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -44,7 +38,7 @@ object NetworkModule {
     @Singleton
     fun providesUserApi(client: OkHttpClient): UserApi {
         return Retrofit.Builder()
-            .baseUrl("https://a4ac-196-189-16-208.ngrok-free.app/api/v1/")
+            .baseUrl("https://b164-102-218-51-226.ngrok-free.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -55,7 +49,7 @@ object NetworkModule {
     @Singleton
     fun providesVehicleApi(client: OkHttpClient): VehicleApi {
         return Retrofit.Builder()
-            .baseUrl("https://a4ac-196-189-16-208.ngrok-free.app/api/v1/")
+            .baseUrl("https://b164-102-218-51-226.ngrok-free.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -68,7 +62,7 @@ object NetworkModule {
     @Singleton
     fun providesLotApi(client: OkHttpClient): LotApi {
         return Retrofit.Builder()
-            .baseUrl("https://a4ac-196-189-16-208.ngrok-free.app/api/v1/")
+            .baseUrl("https://b164-102-218-51-226.ngrok-free.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -79,7 +73,7 @@ object NetworkModule {
     @Singleton
     fun providesOpApi(client: OkHttpClient): OpApi {
         return Retrofit.Builder()
-            .baseUrl("https://a4ac-196-189-16-208.ngrok-free.app/api/v1/")
+            .baseUrl("https://b164-102-218-51-226.ngrok-free.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -91,7 +85,7 @@ object NetworkModule {
     @Singleton
     fun providesDriverApi(client: OkHttpClient): DriverApi {
         return Retrofit.Builder()
-            .baseUrl("https://a4ac-196-189-16-208.ngrok-free.app/api/v1/")
+            .baseUrl("https://b164-102-218-51-226.ngrok-free.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
