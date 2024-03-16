@@ -91,10 +91,7 @@ fun SetupNavGraph(
                 }
             )
         ){
-
-            DirectionMapScreen(
-                navController = navController
-            )
+            DirectionMapScreen()
         }
 
         // Driver

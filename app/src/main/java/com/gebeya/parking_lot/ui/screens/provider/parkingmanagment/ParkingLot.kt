@@ -243,7 +243,6 @@ fun ParkingLot(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -260,7 +259,7 @@ fun ParkingLot(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                POpList(navController = navController, parkingLotViewModel)
+                POpList(parkingLotViewModel)
 
             }
         }

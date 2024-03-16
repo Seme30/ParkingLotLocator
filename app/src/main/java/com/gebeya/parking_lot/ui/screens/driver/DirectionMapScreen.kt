@@ -27,7 +27,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun DirectionMapScreen(
-    navController: NavHostController,
 ){
 
     val directionsMapViewModel = hiltViewModel<DirectionsMapViewModel>()

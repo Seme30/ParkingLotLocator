@@ -19,6 +19,7 @@ import com.gebeya.parking_lot.data.network.model.TimeItemResponse
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DOpList(
+    timeItemList : List<TimeItemResponse>?
 ) {
 
 
@@ -26,12 +27,6 @@ fun DOpList(
         modifier = Modifier.padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        val timeItemList = listOf(
-            TimeItemResponse(1, "08:00", "10:00", 15.0),
-            TimeItemResponse(2, "10:00", "12:00", 20.0),
-            TimeItemResponse(3, "12:00", "14:00", 25.0)
-        )
 
         if(timeItemList!=null){
             val isEmpty = timeItemList.isEmpty()
