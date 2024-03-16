@@ -3,6 +3,7 @@ package com.gebeya.parking_lot.data.network.repository
 import com.gebeya.parking_lot.data.network.api.LotApi
 import com.gebeya.parking_lot.data.network.model.Lot
 import com.gebeya.parking_lot.data.network.model.LotResponse
+import com.gebeya.parking_lot.data.network.model.Reserve
 import com.gebeya.parking_lot.data.network.model.Vehicle
 import com.gebeya.parking_lot.domain.repository.Response
 import retrofit2.HttpException
@@ -22,6 +23,20 @@ class LotRepository(
         } catch (e: IOException){
             Response.Fail(errorMessage = e.message?: "")
         }catch (t: Throwable){
+            Response.Fail(errorMessage = t.message ?: "")
+        }
+    }
+
+    suspend fun createReserve(token: String, lotId: Int, reserve: Reserve, ): Response<Unit> {
+        return try{
+            println("Bearer $token")
+            val response = lotApi.addReserve("Bearer $token", lotId, reserve)
+            return Response.Success(data = response)
+        }catch (e: HttpException){
+            println("HTTP :${e}")
+            Response.Fail(errorMessage = e.message ?: "")
+        }catch (t: Throwable){
+            println("Throwable: ${t.message}")
             Response.Fail(errorMessage = t.message ?: "")
         }
     }

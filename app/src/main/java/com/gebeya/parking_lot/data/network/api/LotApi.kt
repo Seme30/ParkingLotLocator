@@ -2,6 +2,7 @@ package com.gebeya.parking_lot.data.network.api
 
 import com.gebeya.parking_lot.data.network.model.Lot
 import com.gebeya.parking_lot.data.network.model.LotResponse
+import com.gebeya.parking_lot.data.network.model.Reserve
 import com.gebeya.parking_lot.data.network.model.TimeItem
 import com.gebeya.parking_lot.data.network.model.Vehicle
 import retrofit2.http.Body
@@ -44,5 +45,12 @@ interface LotApi {
     suspend fun deleteLot(
         @Header("Authorization") token: String,
         @Path("id") id: Int
+    )
+
+    @POST("parking-lot/lots/{id}/reservations")
+    suspend fun addReserve(
+        @Header("Authorization") token: String,
+        @Path("lotId") lotId: Int,
+        @Body reserve: Reserve
     )
 }

@@ -23,3 +23,8 @@ data class TimeItemResponse(
     val endTime: String,
     val price: Double
 )
+
+data class Reserve(
+    val stayingDuration: String,
+    val vehicleId: Int
+)
