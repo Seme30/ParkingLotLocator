@@ -21,25 +21,16 @@ import androidx.compose.material.icons.filled.Watch
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import com.gebeya.parking_lot.data.network.model.TimeItem
 import com.gebeya.parking_lot.data.network.model.TimeItemResponse
-import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.viewmodel.ParkingLotViewModel
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -48,18 +39,8 @@ fun POpHourItem(
     parkingLotViewModel: ParkingLotViewModel
 ) {
 
-    val context = LocalContext.current
-
     val isDeleteVisible = remember {
         mutableStateOf(false)
-    }
-
-    val editDialog = remember {
-        mutableStateOf(false)
-    }
-
-    if(editDialog.value){
-        EditTimeItemDialog(context = context, editDialog = editDialog, timeItem , parkingLotViewModel = parkingLotViewModel)
     }
 
     Row(
@@ -86,13 +67,6 @@ fun POpHourItem(
         }
 
         IconButton(onClick = {
-            editDialog.value = true
-        }) {
-            Icon(Icons.Filled.Edit, contentDescription = "Edit")
-        }
-        Spacer(modifier = Modifier.width(10.dp))
-
-        IconButton(onClick = {
             isDeleteVisible.value = true
         }) {
             Icon(Icons.Filled.Delete, contentDescription = "Delete", tint = Color.Red)
@@ -109,7 +83,6 @@ fun POpHourItem(
                 isDeleteVisible.value = false
             },
             onConfirmation = {
-//                timeItem.id?.let { vehicleListViewModel.deleteVehicle(it.toInt()) }
                 isDeleteVisible.value = false
             },
             dialogTitle = "Delete Confirmation",
@@ -119,95 +92,3 @@ fun POpHourItem(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun EditTimeItemDialog(
-    context: Context, 
-    editDialog: MutableState<Boolean>, 
-    timeItem: TimeItemResponse,
-    parkingLotViewModel: ParkingLotViewModel
-){
-
-    val id = remember {
-        mutableStateOf(timeItem.id)
-    }
-
-    val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
-    val startTime = remember {
-        mutableStateOf(LocalTime.parse(timeItem.startTime, formatter))
-    }
-    val endTime = remember {
-        mutableStateOf(LocalTime.parse(timeItem.endTime, formatter))
-    }
-    val price = remember { mutableStateOf(timeItem.price.toString()) }
-
-
-    Dialog(onDismissRequest = { editDialog.value = false }) {
-        Column(
-            modifier = Modifier
-                .background(PWhite, shape = RoundedCornerShape(10))
-                .padding(20.dp)
-            ,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            PTimePicker(
-                label = "Start Time",
-                operationTime = { localtime ->
-                startTime.value = localtime
-            })
-            Spacer(modifier = Modifier.height(16.dp))
-            PTimePicker(
-                label = "End Time",
-                operationTime = { localtime ->
-                endTime.value = localtime
-            })
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = price.value,
-                onValueChange = { price.value = it },
-                label = { Text("Price") },
-                singleLine = true
-            )
-//            if (vehicleListViewModel.plateError.value.isNotEmpty()){
-//                Text(text = vehicleListViewModel.plateError.value,
-//                    modifier = Modifier
-//                        .fillMaxWidth(0.8f)
-//                        .padding(top = 10.dp),
-//                    style = TextStyle(
-//                        color = Color.Red, fontFamily = montserratFamily, fontSize = 14.sp
-//                    )
-//                )
-//            }
-            Spacer(modifier = Modifier.height(32.dp))
-            PButton(
-                text = "Update Operation Hour",
-                isWhite = false,
-                click = {
-//                    vehicleListViewModel.validateInput(model = vehicleModel.value,  plate = licensePlate.value, name = name.value)
-//                    if(vehicleListViewModel.nameError.value.isEmpty() &&
-//                        vehicleListViewModel.plateError.value.isEmpty()
-//                    ){
-//                        vehicleListViewModel.updateVehicle(
-//                            Vehicle(
-//                                id = id.value,
-//                                name = name.value,
-//                                model = vehicleModel.value,
-//                                plate = licensePlate.value,
-//                                year = year.value.toInt()
-//                            )
-//                        )
-//                        if(vehicleListViewModel.editError.value.isEmpty()){
-//                            Toast.makeText(context, "Vehicle Updated Successfully", Toast.LENGTH_LONG).show()
-//                            editDialog.value = false
-//                        }
-//                    }
-
-                    price.value = ""
-                }
-            )
-        }
-    }
-
-
-}
