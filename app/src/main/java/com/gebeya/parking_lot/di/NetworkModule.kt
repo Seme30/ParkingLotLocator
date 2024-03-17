@@ -38,7 +38,7 @@ object NetworkModule {
     @Singleton
     fun providesUserApi(client: OkHttpClient): UserApi {
         return Retrofit.Builder()
-            .baseUrl("https://1d53-196-189-16-88.ngrok-free.app/api/v1/")
+            .baseUrl("https://navapi.b.gebeyalearning.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -49,7 +49,7 @@ object NetworkModule {
     @Singleton
     fun providesVehicleApi(client: OkHttpClient): VehicleApi {
         return Retrofit.Builder()
-            .baseUrl("https://1d53-196-189-16-88.ngrok-free.app/api/v1/")
+            .baseUrl("https://navapi.b.gebeyalearning.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -62,7 +62,7 @@ object NetworkModule {
     @Singleton
     fun providesLotApi(client: OkHttpClient): LotApi {
         return Retrofit.Builder()
-            .baseUrl("https://1d53-196-189-16-88.ngrok-free.app/api/v1/")
+            .baseUrl("https://navapi.b.gebeyalearning.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -73,7 +73,7 @@ object NetworkModule {
     @Singleton
     fun providesOpApi(client: OkHttpClient): OpApi {
         return Retrofit.Builder()
-            .baseUrl("https://1d53-196-189-16-88.ngrok-free.app/api/v1/")
+            .baseUrl("https://navapi.b.gebeyalearning.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
@@ -85,7 +85,7 @@ object NetworkModule {
     @Singleton
     fun providesDriverApi(client: OkHttpClient): DriverApi {
         return Retrofit.Builder()
-            .baseUrl("https://1d53-196-189-16-88.ngrok-free.app/api/v1/")
+            .baseUrl("https://navapi.b.gebeyalearning.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .client(client)
             .build()
