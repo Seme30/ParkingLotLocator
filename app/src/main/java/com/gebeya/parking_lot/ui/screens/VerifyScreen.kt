@@ -1,5 +1,6 @@
 package com.gebeya.parking_lot.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +36,7 @@ import com.gebeya.parking_lot.ui.components.PText
 import com.gebeya.parking_lot.ui.components.montserratFamily
 import com.gebeya.parking_lot.ui.theme.PWhite
 import com.gebeya.parking_lot.ui.util.Screen
+import com.gebeya.parking_lot.viewmodel.RegisterViewModel
 import com.gebeya.parking_lot.viewmodel.VerifyViewModel
 
 
@@ -43,7 +46,9 @@ fun VerifyScreen(
 ){
 
     val verifyViewModel = hiltViewModel<VerifyViewModel>()
+    val registerViewModel = hiltViewModel<RegisterViewModel>()
     val phone by verifyViewModel.phoneNumber
+    val context = LocalContext.current
 
     var otpValue by remember{
         mutableStateOf("")
@@ -100,7 +105,7 @@ fun VerifyScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             PText(
-                text = "Please enter the verification code we sent to your mobile $phone",
+                text = "Please enter the verification code we sent to your number $phone",
                 size = 18.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Thin,
@@ -129,7 +134,13 @@ fun VerifyScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
             
-            PButton(text = "Resend Code", click = { /*TODO*/ }, isWhite = true)
+            PButton(text = "Resend Code", click = {
+                if(phone != null){
+                    registerViewModel.authUser(phone?: "")
+                } else {
+                    Toast.makeText(context, "Enter Phone Number Again!", Toast.LENGTH_LONG).show()
+                }
+            }, isWhite = true)
             Spacer(modifier = Modifier.height(15.dp))
             PButton(text = "Verify", click = {
                 println("otp $otpValue")
@@ -140,34 +151,11 @@ fun VerifyScreen(
 
                 verifyViewModel.verifyOTP(
                     phoneNo = phone?: "",
-                    otp = otpValue
+                    otp = otpValue,
+                    navController = navController
                 )
-                println("code ${verifyViewModel.phoneVerifyResponse.value}")
-                if(verifyViewModel.codeError.value.isEmpty()
-                    && verifyViewModel.incorrectCodeError.value.isEmpty()
-                    ){
-                    when (verifyViewModel.phoneVerifyResponse.value.code) {
-                        "U100" -> {
-                            // if the user is a new user
-                            navController.navigate(Screen.RoleSelection.route){
-                                popUpTo(Screen.Welcome.route) { inclusive = true }
-                            }
-                        }
-                        "U101" -> {
-                            // if the user is a driver
-                            navController.navigate(Screen.MainScreen.route){
-                                popUpTo(Screen.Welcome.route) { inclusive = true }
-                            }
-                        }
-                        "U102" -> {
-                            // if the user is a provider
-                            navController.navigate(Screen.ProviderMainScreen.route){
-                                popUpTo(Screen.Welcome.route) { inclusive = true }
-                            }
-                        }
-                    }
-                }
             })
+
         }
 
 
