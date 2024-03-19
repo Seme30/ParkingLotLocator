@@ -176,7 +176,7 @@ fun DetailScreen(
                                                verticalArrangement = Arrangement.Center
                                            ) {
                                                PText(text = "No Vehicles Registered Yet!", size = 15.sp)
-                                               PText(text = "Add Vehicles First Yet!", size = 15.sp)
+                                               PText(text = "Add Vehicles First!", size = 15.sp)
                                            }
                                        } else if(isNull){
                                            Column(
