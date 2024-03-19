@@ -8,13 +8,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gebeya.parking_lot.data.datapreference.DataStoreRepository
-import com.gebeya.parking_lot.data.network.model.Driver
-import com.gebeya.parking_lot.data.network.model.DriverResponse
+import com.gebeya.parking_lot.data.keystore.Role
 import com.gebeya.parking_lot.data.network.model.Provider
 import com.gebeya.parking_lot.data.network.model.ProviderResponse
 import com.gebeya.parking_lot.domain.repository.DriverRepository
+import com.gebeya.parking_lot.domain.repository.KeystoreRepository
 import com.gebeya.parking_lot.domain.repository.Response
-import com.gebeya.parking_lot.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +23,8 @@ import javax.inject.Inject
 class ProviderRegisterFromViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val driverRepository: DriverRepository,
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreRepository: DataStoreRepository,
+    private val keystoreRepository: KeystoreRepository
 ): ViewModel() {
 
     val code = mutableStateOf(savedStateHandle.get<String>("code"))
@@ -102,6 +102,7 @@ class ProviderRegisterFromViewModel @Inject constructor(
                         dataStoreRepository.saveAuthenticationToken(
                             it
                         )
+                        keystoreRepository.setRole(Role.Provider)
                     }
                 }
             }
